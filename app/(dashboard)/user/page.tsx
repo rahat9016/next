@@ -1,9 +1,11 @@
+import User from "@/components/user/User";
+
 const page = () => {
-    return (
-        <div>
-            ddddd
-        </div>
-    );
+  return (
+    <div className="">
+      <User/>
+    </div>
+  );
 };
 
 export default page;
