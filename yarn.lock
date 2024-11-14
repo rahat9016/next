@@ -554,18 +554,6 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tabler/icons-react@^3.22.0":
-  version "3.22.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.22.0.tgz#4fd044eaf5ae32baeed91af7bec6d9cb71443f06"
-  integrity sha512-pOnn+IqZpnkYsEKRvbXXLXwXhYwg4cy1fEVr5SRrgAYJXkobpDjFTdVHlab0HEBXY5AE1NjsMlVeK6H/8Vv2uQ==
-  dependencies:
-    "@tabler/icons" "3.22.0"
-
-"@tabler/icons@3.22.0":
-  version "3.22.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.22.0.tgz#f937ec65d98710b891da6368559ea15cbcd87f91"
-  integrity sha512-IfgGzhFph5OBr2wTieWL/hyAs0FThnq9O155a6kfGYxqx7h5LQw91wnRswhEaGhXCcfmR7ZVDUr9H+x4b9Pb8g==
-
 "@tanstack/query-core@5.59.20":
   version "5.59.20"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.59.20.tgz#356718976536727b9af0ad1163a21fd6a44ee0a9"
@@ -2797,7 +2785,6 @@ streamsearch@^1.1.0:
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
-  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
