@@ -63,7 +63,7 @@ const TableAll: React.FC<ITable> = ({ table }) => {
                           <input
                             type="text"
                             className="my-1 px-8 py-1 w-full column-filter bg-white border border-[#D4D4D4] outline-none rounded-md "
-                            onChange={(e) =>
+                            onChange={(e : any) =>
                               header.column.setFilterValue(e.target.value)
                             }
                           />

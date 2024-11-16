@@ -23,6 +23,7 @@ import {
 import { MdAdd } from "react-icons/md";
 
 interface IFilter {
+  headerName:string;
   filtering: string;
   setFiltering: React.Dispatch<React.SetStateAction<string>>;
   table: any;
@@ -39,6 +40,7 @@ interface IFilter {
 // type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 const FilterTable: React.FC<IFilter> = ({
+  headerName,
   filtering,
   setFiltering,
   buttonName,
@@ -117,11 +119,7 @@ const FilterTable: React.FC<IFilter> = ({
 
               <DialogContent className="bg-white w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle>Your Dialog Title</DialogTitle>{" "}
-                  {/* Accessible title */}
-                  <DialogDescription>
-                    Optional description of the dialog goes here.
-                  </DialogDescription>
+                  <DialogTitle>{headerName}</DialogTitle>{" "}
                 </DialogHeader>
                 {children}
               </DialogContent>

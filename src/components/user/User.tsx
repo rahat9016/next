@@ -26,8 +26,12 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  // DialogHeader,
+  // DialogTitle,
 } from "../ui/dialog";
 import EditUser from "./EditUser";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const User = () => {
   const [editData, setEditData] = useState(null);
@@ -91,8 +95,7 @@ const User = () => {
     queryFn: () => getUsers(),
   });
 
-console.log("allUserData", allUserData);
-
+  console.log("allUserData", allUserData);
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => allUserData, [allUserData]);
@@ -121,12 +124,14 @@ console.log("allUserData", allUserData);
   return (
     <div className="">
       <p className="underline text-5xl font-bold text-sky-900">User</p>
+
       <FilterTable
         filtering={filtering}
         setFiltering={setFiltering}
         data={data}
         table={table}
         buttonName="Add"
+        headerName="Add User Information"
         open={filterModalOpen}
         setOpen={setFilterModalOpen}
         userName="User"
@@ -134,19 +139,21 @@ console.log("allUserData", allUserData);
       >
         <AddUser setOpen={setFilterModalOpen} refetch={refetch} />
       </FilterTable>
+
       {isLoading ? <div>loading ...</div> : <TableAll table={table} />}
+
       {!isLoading && <TablePagination table={table} />}
+
       <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
         <DialogContent className="bg-white w-[80vw]">
           <DialogHeader>
-            <DialogTitle>Your Dialog Title</DialogTitle>{" "}
-            <DialogDescription>
-              Optional description of the dialog goes here.
-            </DialogDescription>
+            <DialogTitle>User Information Edit</DialogTitle>
           </DialogHeader>
           <EditUser setEditModalOpen={setEditModalOpen} refetch={refetch} />
         </DialogContent>
       </Dialog>
+
+      <ToastContainer />
     </div>
   );
 };
