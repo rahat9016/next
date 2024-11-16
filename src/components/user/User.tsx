@@ -33,8 +33,14 @@ import EditUser from "./EditUser";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
+interface EditDataProps {
+  name: string;
+  email: string;
+  gender: string;
+}
+
 const User = () => {
-  const [editData, setEditData] = useState(null);
+  const [editData, setEditData] = useState<EditDataProps | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false); // State for edit modal
   const [filterModalOpen, setFilterModalOpen] = useState(false); // Separate state for the filter modal
   const dispatch = useDispatch();

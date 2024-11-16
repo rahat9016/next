@@ -9,6 +9,7 @@ interface FieldInfo {
     register: UseFormRegister<any>;
     disabled?: boolean;
     isRequired?: boolean;
+    defaultValue?: any;
   }
 
 const Input: React.FC<FieldInfo> = ({
@@ -19,6 +20,7 @@ const Input: React.FC<FieldInfo> = ({
   errors,
   register,
   disabled,
+  defaultValue,
   isRequired // Destructure the new prop
 }) => {
    
@@ -32,6 +34,7 @@ const Input: React.FC<FieldInfo> = ({
           className="block outline-none placeholder:text-[#afacac] text-base py-2 pl-6 border-2 border-[#D4D4D4] rounded-md w-full"
           type={inputType}
           placeholder={placeholderText}
+          defaultValue={defaultValue}
           {...register(name)}
           disabled={disabled}
         />

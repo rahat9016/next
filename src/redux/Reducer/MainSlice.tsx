@@ -5,7 +5,7 @@ interface MainState {
   search: boolean;
   add: boolean;
   toggle:boolean;
-  val: unknown;
+  val: any;
 }
 
 const initialState: MainState = {
