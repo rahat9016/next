@@ -19,6 +19,7 @@ const Schema = yup.object().shape({
       ["male", "female", "third gender"],
       "Gender must be either 'male', 'female', or 'third gender'"
     ),
+  employeeType: yup.string().required("Employee type is required"),
 });
 
 export default Schema;

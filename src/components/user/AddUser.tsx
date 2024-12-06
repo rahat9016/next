@@ -6,6 +6,7 @@ import Input from "../ui/form/Input";
 import SelectField from "../ui/form/SelectField";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import RadioField from "../ui/form/RadioField";
 
 interface IAdd {
   setOpen: (open: boolean) => void;
@@ -16,6 +17,7 @@ interface IFormInput {
   name: string;
   email: string;
   gender: string;
+  employeeType: string;
 }
 
 const genderData = [
@@ -33,6 +35,26 @@ const genderData = [
     id: 3,
     label: "Third Gender",
     value: "third gender",
+  },
+];
+
+interface IEmployeeType {
+  valueId: string;
+  valueLabel: string;
+}
+
+const employeeTypes: IEmployeeType[] = [
+  {
+    valueId: "cashier",
+    valueLabel: "Cashier",
+  },
+  {
+    valueId: "employee",
+    valueLabel: "Employee",
+  },
+  {
+    valueId: "admin",
+    valueLabel: "Admin",
   },
 ];
 
@@ -154,6 +176,15 @@ const AddUser: React.FC<IAdd> = ({ setOpen, refetch }) => {
             resetFieldName2=""
             disabledValue="1"
             isLoading={false}
+          />
+
+          <RadioField
+            labelName="Employee Type"
+            inputName="employeeType"
+            errorMessage={errors?.employeeType?.message}
+            register={register}
+            data={employeeTypes}
+            gridCols={3}
           />
         </div>
         <button
