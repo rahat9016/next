@@ -20,6 +20,7 @@ interface IFormInput {
   name: string;
   email: string;
   gender: string;
+  employeeType: string;
 }
 
 const genderData = [
