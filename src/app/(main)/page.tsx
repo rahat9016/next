@@ -15,6 +15,7 @@ const page = () => {
           Go To Dashboard
         </button>
       </Link>
+
     </div>
   );
 };

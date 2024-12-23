@@ -1,0 +1,6 @@
+{
+  "id": "123",
+  "role": "SUPER_ADMIN",
+  "routes": ["/dashboard", "/add-user", "/update-user", "/delete-user"],
+  "permissions": ["addUser", "deleteUser", "updateUser", "viewDashboard"]
+}

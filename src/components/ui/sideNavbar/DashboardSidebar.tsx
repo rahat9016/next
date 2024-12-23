@@ -1,32 +1,43 @@
 "use client";
-import React, { useState } from "react";
-import { LuLayoutDashboard } from "react-icons/lu";
-import Link from "next/link";
+import { getCookie } from "@/lib/cookie";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { Sidebar, SidebarBody, SidebarLink } from "../sidebar";
+import Link from "next/link";
+import React, { useState } from "react";
 import { FaUserCog } from "react-icons/fa";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { Sidebar, SidebarBody, SidebarLink } from "../sidebar";
 
+
+export const links = [
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: (
+      <LuLayoutDashboard className="text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
+    label: "User",
+    href: "/user",
+    icon: (
+      <FaUserCog className=" text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
+    label: "Category",
+    href: "/category",
+    icon: (
+      <FaUserCog className=" text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },    
+];
 export function DashboardSidebar({ children }: { children: React.ReactNode }) {
-  const links = [
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-      icon: (
-        <LuLayoutDashboard className="text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "User",
-      href: "/user",
-      icon: (
-        <FaUserCog className=" text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-   
-  ];
+  const user = getCookie('token')
 
+  const filterMenus = user.role === "SUPER_ADMIN" ? links : links.filter(link  => user.routes.includes(link.href))
+  console.log(filterMenus)
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -40,7 +51,7 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx) => (
+              {filterMenus.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
