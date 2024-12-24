@@ -1,7 +1,7 @@
 export const getCookie = (name: string) => {
-    const nameEQ = name + "=";
-    
-    const cookiesArray = window.document.cookie.split(";");
+    if (typeof document === 'undefined') return null;
+    const nameEQ = name + "=";    
+    const cookiesArray = document.cookie.split(";");
     
     for (let i = 0; i < cookiesArray.length; i++) {
         let cookie = cookiesArray[i].trim();
@@ -12,7 +12,6 @@ export const getCookie = (name: string) => {
             );
             
             return JSON.parse(encryptedValue)
-            // return decryptedValue;
         }
     }
     return null;

@@ -1,1 +1,1 @@
-export const PROTECTED_ROUTES = ["/dashboard", "/user", "/category", "/subcategory"]
+export const PROTECTED_ROUTES = ["/dashboard", "/user", "/role"]

@@ -32,6 +32,8 @@ import {
 import EditUser from "./EditUser";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import HasPermission from "../HasPermission";
+import { VIEW } from "@/lib/constants";
 
 interface EditDataProps {
   name: string;
@@ -128,7 +130,7 @@ const User = () => {
   });
 
   return (
-    <div className="">
+    <div>
       <p className="underline text-5xl font-bold text-sky-900">User</p>
 
       <FilterTable

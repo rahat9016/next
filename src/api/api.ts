@@ -19,9 +19,9 @@ export async function login() {
             const data = {
                 id: 123,
                 role: "SUPER_ADMIN",
-                // role: "ADMIN",
-                routes: ["/dashboard", "/category"],
-                permissions: ["ADD", "DELETE", "UPDATE", "VIEW"],
+                // role: "ADMIN2",
+                routes: ["/dashboard", "/category", "/user"],
+                permissions: [],
             };
 
             // Save the user data to cookies or localStorage

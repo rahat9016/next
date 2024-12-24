@@ -26,8 +26,8 @@ export const links = [
     ),
   },
   {
-    label: "Category",
-    href: "/category",
+    label: "role",
+    href: "/role",
     icon: (
       <FaUserCog className=" text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
@@ -36,8 +36,8 @@ export const links = [
 export function DashboardSidebar({ children }: { children: React.ReactNode }) {
   const user = getCookie('token')
 
-  const filterMenus = user.role === "SUPER_ADMIN" ? links : links.filter(link  => user.routes.includes(link.href))
-  console.log(filterMenus)
+  const filterMenus = user?.role === "SUPER_ADMIN" ? links : links.filter(link  => user?.routes.includes(link.href))
+  
   const [open, setOpen] = useState(false);
   return (
     <div
