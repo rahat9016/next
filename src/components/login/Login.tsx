@@ -1,10 +1,11 @@
 "use client";
 
 import { login } from "@/api/api";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useRouter } from "next/navigation";
 
 interface LoginFormInputs {
     email: string;
@@ -17,17 +18,19 @@ export default function Login() {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginFormInputs>();
+    const [error, setError] = useState<string>("")
     const router = useRouter()
     const onSubmit = async (data: LoginFormInputs) => {
         try {
-            const user = await login()
-            if(user?.id){
+            const user = await login(data)
+            if (user?.id) {
                 router.push(user.routes[0] || "/" as string)
             }
-        } catch (error) {
-            
+        } catch (error: any) {
+            console.log(error.message)
+            setError(error.message)
         }
-        
+
     };
     return (
         <div className="w-3/12 mx-auto bg-white shadow-lg p-3">
@@ -63,6 +66,11 @@ export default function Login() {
                         </p>
                     )}
                 </div>
+                {error && (
+                    <p className="text-red-500 text-sm mt-1">
+                        {error}
+                    </p>
+                )}
                 <Button type="submit" className="w-full">
                     Login
                 </Button>

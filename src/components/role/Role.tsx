@@ -1,6 +1,6 @@
 "use client";
 
-import { getUsers } from "@/api/api";
+import { getAllUsers, getUsers } from "@/api/api";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -23,7 +23,6 @@ import AddRole from "./AddRole";
 
 export default function Role() {
     const [filtering, setFiltering] = useState("");
-    const [editData, setEditData] = useState(null);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [filterModalOpen, setFilterModalOpen] = useState(false);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -34,14 +33,14 @@ export default function Role() {
         data: allUserData,
         refetch,
     } = useQuery({
-        queryKey: ["allUserData"],
-        queryFn: () => getUsers(),
+        queryKey: ["allRoleData"],
+        queryFn: () => getAllUsers(),
     });
 
     const data = useMemo(() => allUserData, [allUserData]);
 
     const handleEdit = (rowData: any) => {
-        setEditData(rowData);
+        // setEditData(rowData);
         setEditModalOpen(true);
     };
     const COLUMNS = [
@@ -109,7 +108,7 @@ export default function Role() {
                 userName="User"
                 usersNumber={data?.length}
             >
-                <AddRole />
+                <AddRole  setOpen={setFilterModalOpen}/>
             </FilterTable>
             {isLoading ? <div>loading ...</div> : <TableAll table={table} />}
 

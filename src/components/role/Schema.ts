@@ -15,6 +15,7 @@ const Schema = yup.object().shape({
   role: yup
     .string()
     .required("Role is required"),
+    
 });
 
 export default Schema;

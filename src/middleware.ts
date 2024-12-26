@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
         const userRoutes = user?.routes || [];
         console.log({userRoutes})
         if (user.role === "SUPER_ADMIN") {
-            console.log("Access in SUPER_ADMIN");
+            console.log("Access SUPER_ADMIN gets all routes");
             if (!PROTECTED_ROUTES.some((route) => path.startsWith(route))) {
                 return NextResponse.redirect(
                     new URL(PROTECTED_ROUTES[0], request.nextUrl)
