@@ -20,7 +20,7 @@ export async function login() {
                 id: 123,
                 role: "SUPER_ADMIN",
                 // role: "ADMIN2",
-                routes: ["/dashboard", "/category", "/user"],
+                routes: ["/dashboard", "/user"],
                 permissions: [],
             };
 

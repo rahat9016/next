@@ -3,7 +3,7 @@ import { PROTECTED_ROUTES } from "./lib/routes";
 
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
-    const isPublicPath:boolean = path === "/login" || path === "/register";
+    const isPublicPath: boolean = path === "/login" || path === "/register";
 
     const token = request.cookies.get("token")?.value;
     const user = token ? JSON.parse(token) : null;
@@ -17,6 +17,7 @@ export function middleware(request: NextRequest) {
 
     if (user) {
         const userRoutes = user?.routes || [];
+        console.log({userRoutes})
         if (user.role === "SUPER_ADMIN") {
             console.log("Access in SUPER_ADMIN");
             if (!PROTECTED_ROUTES.some((route) => path.startsWith(route))) {
@@ -25,14 +26,16 @@ export function middleware(request: NextRequest) {
                 );
             }
         } else {
-            if (userRoutes.length <= 0)
+            if (userRoutes.length === 0 && path !== "/") {
+                // Routes is empty so redirect to root
+                console.log('routes is empty so redirect to root')
                 return NextResponse.redirect(new URL("/", request.nextUrl));
-            else if (
-                !userRoutes.some((route: string) => path.startsWith(route))
-            ) {
+            }
+            if (userRoutes.length > 0 && !userRoutes.some((route: string) => path.startsWith(route))) {
+                // Access the allowed routes
                 console.log("Access in ADMIN");
                 return NextResponse.redirect(
-                    new URL(userRoutes[0] || "/", request.nextUrl)
+                    new URL(userRoutes[0], request.nextUrl)
                 );
             }
         }
@@ -46,6 +49,6 @@ export const config = {
         "/dashboard/:path*",
         "/",
         "/user",
-        "/role"
+        "/role",
     ],
 };
