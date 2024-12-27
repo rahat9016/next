@@ -3,13 +3,13 @@
 import { addUser } from "@/api/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Checkbox } from "../ui/checkbox";
 import Input from "../ui/form/Input";
 import SelectField from "../ui/form/SelectField";
+import { links } from "../ui/sideNavbar/DashboardSidebar";
 import Schema from "./Schema";
-import { toast } from "react-toastify";
-import { SetStateAction } from "react";
 const options = [
     { id: 1, value: "ATI", label: "ATI" },
     {
@@ -38,30 +38,30 @@ const permissionBaseAction = [
     },
 ] as const;
 
-interface FormInputs  {
-  name: string;
-  email: string;
-  role: string;
-  permissions?: {
-      add: string;
-      edit: string;
-      view: string;
-      delete: string;
-  };
+interface FormInputs {
+    name: string;
+    email: string;
+    role: string;
+    permissions?: {
+        add: string;
+        edit: string;
+        view: string;
+        delete: string;
+    };
+    routes?: Record<string, boolean>;
 };
-export default function AddRole({setOpen}: {setOpen: React.Dispatch<SetStateAction<boolean>>}) {
+export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateAction<boolean>> }) {
     const resolver = yupResolver(Schema);
     const queryClient = useQueryClient();
-    const { mutate, isPending } = useMutation({
+    const { mutate, isPending, error } = useMutation({
         mutationFn: addUser,
-        // onSuccess: () => {
-        //   // Invalidate queries to refetch data
-        //   queryClient.invalidateQueries(["allRolesData"]);
-        // },
-        onError: (error: Error) => {
-          console.error("Error adding user:", error.message);
+        onSuccess: () => {
+            queryClient.invalidateQueries(['allRolesData'] as any)
         },
-      });
+        onError: (error: Error) => {
+            console.error("Error adding user:", error.message);
+        },
+    });
     const {
         register,
         handleSubmit,
@@ -72,11 +72,21 @@ export default function AddRole({setOpen}: {setOpen: React.Dispatch<SetStateActi
     } = useForm<FormInputs>({ resolver });
 
     const onSubmit = (data: any) => {
+        if (!data) return;
+
+        function checkedFn(data: any) {
+            const checked = Object.entries(data)
+                .filter(([_, isChecked]) => isChecked)
+                .map(([key]) => key);
+            return checked
+        }
+
         const roleObject = {
             ...data,
-            permissions: Object.values(data.permissions)
+            permissions: checkedFn(data.permissions),
+            routes: checkedFn(data.routes)
         }
-        console.log(roleObject)
+
         mutate(roleObject);
         reset()
         setOpen(false)
@@ -107,7 +117,7 @@ export default function AddRole({setOpen}: {setOpen: React.Dispatch<SetStateActi
                         control={control}
                         name="role"
                         data={options}
-                        label="Gender"
+                        label="Role"
                         placeholder="-Select Role-"
                         labelKey="label"
                         valueKey="value"
@@ -118,30 +128,70 @@ export default function AddRole({setOpen}: {setOpen: React.Dispatch<SetStateActi
                         isLoading={false}
                         error={errors.role?.message}
                     />
-                    <div>
-                    <div>
-                    {permissionBaseAction.map((permission) => (
-          <Controller
-            key={permission.id}
-            name={`permissions.${permission.id}`}
-            control={control}  
-            render={({ field }) => (
-              <div className="flex items-center space-x-2">
-                <Checkbox {...field} id={permission.id} /> 
-                <label className="cursor-pointer" htmlFor={permission.id}>{permission.label}</label>
-              </div>
-            )}
-          />
-        ))}
-      </div>
+                    <div className="flex flex-col gap-1">
+                        <label className="text-[#2D0C3E] text-basic pl-2 mb-1">
+                            Permission
+                        </label>
+                        <div className="flex items-center gap-3 flex-wrap">
+
+                            {permissionBaseAction.map((permission) => (
+                                <Controller
+                                    key={permission.id}
+                                    name={`permissions.${permission.id}`}
+                                    control={control}
+                                    render={({ field }) => {
+                                        return (
+                                            <div className="flex items-center space-x-2">
+                                                <Checkbox
+                                                    id={permission.id}
+                                                    checked={!!field.value}
+                                                    onCheckedChange={field.onChange}
+                                                    {...field}
+                                                />
+                                                <label className="cursor-pointer" htmlFor={permission.id}>
+                                                    {permission.label}
+                                                </label>
+                                            </div>
+                                        )
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-4">
+                    <label className="text-[#2D0C3E] text-basic pl-2 mb-1">
+                        Permission Routes
+                    </label>
+                    <div className="flex items-center gap-5 flex-wrap">
+                        {links.map((route) => (
+                            <Controller
+                                key={route.label}
+                                name={`routes.${route.href}`}
+                                control={control}
+                                render={({ field }) => (
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox
+                                            id={route.href}
+                                            checked={!!field.value}
+                                            onCheckedChange={field.onChange}
+                                            {...field}
+                                        />
+                                        <label className="cursor-pointer" htmlFor={route.href}>
+                                            {route.label}
+                                        </label>
+                                    </div>
+                                )}
+                            />
+                        ))}
+
                     </div>
                 </div>
                 <button
                     type="submit"
-                    // disabled={isLoading}
                     className="bg-[#388E3C] text-bgPrimary text-sm font-medium px-8 py-3 rounded-md mt-6"
                 >
-                    {isPending ? "Loading..." :"Add"} 
+                    {isPending ? "Loading..." : "Add"}
                 </button>
             </form>
         </div>

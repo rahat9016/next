@@ -1,12 +1,13 @@
 // import { Button } from "@/components/ui/button";
+import HasPermission from "@/components/HasPermission";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
+import { ADD } from "@/lib/constants";
 // import {
 //   DropdownMenu,
 //   DropdownMenuCheckboxItem,
@@ -109,6 +110,7 @@ const FilterTable: React.FC<IFilter> = ({
               </DropdownMenu> */}
             </div>
 
+            <HasPermission action={ADD}>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger className="">
                 <div className="bg-[#388E3C] rounded-md text-base text-[#F5F5F5] font-medium px-8 py-2 border-4 flex justify-center items-center gap-2">
@@ -124,6 +126,7 @@ const FilterTable: React.FC<IFilter> = ({
                 {children}
               </DialogContent>
             </Dialog>
+            </HasPermission>
 
             {/* <Dialog open={open} onOpenChange={setOpen}>
            

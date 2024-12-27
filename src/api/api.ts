@@ -26,7 +26,7 @@ export async function login({email}:{email: string}) {
         if (data.length>0) {
             // Save the user data to cookies or localStorage
             document.cookie = `token=${JSON.stringify(data[0])}; path=/;`;
-            return data;
+            return data[0];
         }else throw new Error("User not found");
     } catch (error) {
         console.log("Login error", error);

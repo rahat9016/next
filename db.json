@@ -12,6 +12,21 @@
       "name": "Super Admin",
       "email": "superadmin@gmail.com",
       "role": "SUPER_ADMIN"
+    },
+    {
+      "id": "98d0",
+      "name": "Electronics",
+      "email": "rahat@gmail.com",
+      "role": "ATI",
+      "permissions": [
+        "edit",
+        "view"
+      ],
+      "routes": [
+        "/dashboard",
+        "/user",
+        "/role"
+      ]
     }
   ]
 }

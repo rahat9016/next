@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllUsers, getUsers } from "@/api/api";
+import { getAllUsers } from "@/api/api";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -29,11 +29,9 @@ export default function Role() {
     const [sorting, setSorting] = useState<SortingState>([]);
     const {
         isLoading,
-        isError,
-        data: allUserData,
-        refetch,
+        data: allUserData
     } = useQuery({
-        queryKey: ["allRoleData"],
+        queryKey: ["allRolesData"],
         queryFn: () => getAllUsers(),
     });
 
@@ -87,7 +85,7 @@ export default function Role() {
         state: {
             sorting: sorting,
             globalFilter: filtering,
-            columnVisibility: ColumnVisibility,
+            columnVisibility: columnVisibility,
         },
         onSortingChange: setSorting,
         onGlobalFilterChange: setFiltering,
