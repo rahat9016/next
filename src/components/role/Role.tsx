@@ -5,7 +5,6 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { useQuery } from "@tanstack/react-query";
 import {
     CellContext,
-    ColumnVisibility,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
@@ -20,6 +19,9 @@ import TooltipDiv from "../ui/share/TooltipDiv";
 import FilterTable from "../ui/table/FilterTable";
 import TableAll from "../ui/table/TableAll";
 import AddRole from "./AddRole";
+import EditRole from "./EditRole";
+import HasPermission from "../HasPermission";
+import { EDIT } from "@/lib/constants";
 
 export default function Role() {
     const [filtering, setFiltering] = useState("");
@@ -27,10 +29,8 @@ export default function Role() {
     const [filterModalOpen, setFilterModalOpen] = useState(false);
     const [columnVisibility, setColumnVisibility] = useState({});
     const [sorting, setSorting] = useState<SortingState>([]);
-    const {
-        isLoading,
-        data: allUserData
-    } = useQuery({
+    const [editData, setEditData] = useState();
+    const { isLoading, data: allUserData } = useQuery({
         queryKey: ["allRolesData"],
         queryFn: () => getAllUsers(),
     });
@@ -38,7 +38,7 @@ export default function Role() {
     const data = useMemo(() => allUserData, [allUserData]);
 
     const handleEdit = (rowData: any) => {
-        // setEditData(rowData);
+        setEditData(rowData);
         setEditModalOpen(true);
     };
     const COLUMNS = [
@@ -63,12 +63,14 @@ export default function Role() {
             enableSorting: false,
             cell: (row: any) => (
                 <div className="flex gap-3 justify-center items-center w-full">
-                    <button
-                        onClick={() => handleEdit(row.row.original)}
-                        className=" flex"
-                    >
-                        <TooltipDiv name="Edit" />
-                    </button>
+                    <HasPermission action={EDIT}>
+                        <button
+                            onClick={() => handleEdit(row.row.original)}
+                            className=" flex"
+                        >
+                            <TooltipDiv name="Edit" />
+                        </button>
+                    </HasPermission>
                 </div>
             ),
         },
@@ -106,7 +108,7 @@ export default function Role() {
                 userName="User"
                 usersNumber={data?.length}
             >
-                <AddRole  setOpen={setFilterModalOpen}/>
+                <AddRole setOpen={setFilterModalOpen} />
             </FilterTable>
             {isLoading ? <div>loading ...</div> : <TableAll table={table} />}
 
@@ -115,10 +117,10 @@ export default function Role() {
                     <DialogHeader>
                         <DialogTitle>Role Information Edit</DialogTitle>
                     </DialogHeader>
-                    {/* <EditUser
-                        setEditModalOpen={setEditModalOpen}
-                        refetch={refetch}
-                    /> */}
+                    <EditRole
+                        initialValues={editData}
+                        setOpen={setEditModalOpen}
+                    />
                 </DialogContent>
             </Dialog>
 

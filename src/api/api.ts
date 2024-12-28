@@ -37,10 +37,18 @@ export async function login({email}:{email: string}) {
 export const addUser = async (data:any) => {
     try {        
         const response = await axios.post(`${jsonServerURL}/users`, data);
-        console.log(response)
         return response.data
     } catch (error) {
         console.log("Add User error", error);
         throw new Error("Add User field");
+    }
+}
+export const updateUser = async (data:any) => {
+    try {        
+        const response = await axios.patch(`${jsonServerURL}/users/${data?.id}`, data);
+        return response.data
+    } catch (error) {
+        console.log("Update User error", error);
+        throw new Error("Update User field");
     }
 }

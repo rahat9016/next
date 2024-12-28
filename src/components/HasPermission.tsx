@@ -12,8 +12,17 @@ const HasPermission: React.FC<IHasPermissionProps> = ({
 }) => {
     const user = getCookie('token')
     if(!user) return;
+    
     const isPermission = hasPermissionForAction(user, action.toUpperCase())
-    return <div className={`${ isPermission ? 'block' : 'hidden' }`}>{children}</div>;
+    const shouldShowDisabled = action.toLowerCase() === "edit" && !isPermission;
+    if (!isPermission && action.toLowerCase() !== "edit") return null;
+    return <div className={`${
+        shouldShowDisabled ? "opacity-25 pointer-events-none" : "block"
+      }`}>
+        {React.cloneElement(children as React.ReactElement, {
+        disabled: shouldShowDisabled, 
+      })}
+      </div>;
 }
 
 export default HasPermission

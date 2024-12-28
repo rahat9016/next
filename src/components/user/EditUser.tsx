@@ -5,11 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import Schema from "./Schema";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Input from "../ui/form/Input";
 import EditSelectField from "../ui/form/EditSelectField";
+import Input from "../ui/form/Input";
+import Schema from "./Schema";
 
 interface IEditProps {
   setEditModalOpen: Function;

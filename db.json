@@ -3,10 +3,7 @@
     {
       "id": "edbe",
       "permissions": [
-        "add",
-        "edit",
-        "view",
-        "delete"
+        "view"
       ],
       "routes": [],
       "name": "Super Admin",
@@ -16,6 +13,20 @@
     {
       "id": "98d0",
       "name": "Electronics",
+      "email": "rahat@gmail.com",
+      "role": "DRUG_INTERNATIONAL_LIMITED",
+      "permissions": [
+        "view"
+      ],
+      "routes": [
+        "/dashboard",
+        "/user",
+        "/role"
+      ]
+    },
+    {
+      "id": "6671",
+      "name": "Minhazur",
       "email": "rahat@gmail.com",
       "role": "ATI",
       "permissions": [
