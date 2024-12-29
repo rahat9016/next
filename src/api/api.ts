@@ -23,7 +23,7 @@ export const getAllUsers = async () => {
 export async function login({email}:{email: string}) {
     try {
         const {data} = await axios.get(`${jsonServerURL}/users?email=${email}`);
-        if (data.length>0) {
+        if (data.length > 0) {
             // Save the user data to cookies or localStorage
             document.cookie = `token=${JSON.stringify(data[0])}; path=/;`;
             return data[0];

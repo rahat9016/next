@@ -16,3 +16,9 @@ export const getCookie = (name: string) => {
     }
     return null;
 };
+
+
+export const deleteCookie = (name: string) => {
+    if (typeof document === 'undefined') return null;
+    document.cookie = `${name}=; Max-Age=0; path=/;`;
+}
