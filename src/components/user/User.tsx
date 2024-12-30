@@ -1,39 +1,33 @@
 "use client";
 
 import { getUsers } from "@/api/api";
-import { rowValue } from "@/redux/Reducer/MainSlice";
+import { rowValue } from "@/lib/redux/Reducer/MainSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  CellContext,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
-  useReactTable,
+  useReactTable
 } from "@tanstack/react-table";
-import TooltipDiv from "../ui/share/TooltipDiv";
-import FilterTable from "../ui/table/FilterTable";
-import AddUser from "./AddUser";
-import TableAll from "../ui/table/TableAll";
-import TablePagination from "../ui/table/TablePagination";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
-  // DialogHeader,
-  // DialogTitle,
+  DialogTitle
 } from "../ui/dialog";
+import TooltipDiv from "../ui/share/TooltipDiv";
+import FilterTable from "../ui/table/FilterTable";
+import TableAll from "../ui/table/TableAll";
+import TablePagination from "../ui/table/TablePagination";
+import AddUser from "./AddUser";
 import EditUser from "./EditUser";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import HasPermission from "../HasPermission";
-import { VIEW } from "@/lib/constants";
 
 interface EditDataProps {
   name: string;

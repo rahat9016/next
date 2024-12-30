@@ -1,5 +1,6 @@
 "use client";
 import { deleteCookie, getCookie } from "@/lib/cookie";
+import { useAppSelector } from "@/lib/redux/hooks";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -9,10 +10,10 @@ import React, { useState } from "react";
 import { FaUserCog } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
 } from "../dropdown-menu";
 import { Sidebar, SidebarBody, SidebarLink } from "../sidebar";
 
@@ -36,10 +37,10 @@ export const links = [
     },
 ];
 export function DashboardSidebar({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
-  const router = useRouter()
-    const user = getCookie("token");
-
+    const [open, setOpen] = useState(false);
+    const router = useRouter()
+    const { userInformation: user } = useAppSelector(state => state.auth)
+    
     const filterMenus =
         user?.role === "SUPER_ADMIN"
             ? links
@@ -47,8 +48,8 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
 
 
     const handleLogout = () => {
-      deleteCookie('token')
-      router.push("/login")
+        deleteCookie('token')
+        router.push("/login")
     }
     return (
         <div
