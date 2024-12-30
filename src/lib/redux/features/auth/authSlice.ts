@@ -11,7 +11,8 @@ interface IInitialState {
         role: string;
         routes: string[];
         permissions: string[];
-    }
+    },
+    data: any
 }
 
 const initialState: IInitialState = {
@@ -22,7 +23,8 @@ const initialState: IInitialState = {
         role: "",
         routes: [],
         permissions: [],
-    }
+    },
+    data: []
 }
 const authSlice = createSlice({
     name:"auth",
@@ -30,10 +32,13 @@ const authSlice = createSlice({
     reducers: {
         setUserInformation: (state, action) => {
             state.userInformation = { ...initialState.userInformation, ...action.payload }
+        },
+        setData: (state, action) => {
+            state.data = {...initialState.data, ...action.payload}
         }
     }
 })
 
-export const { setUserInformation } = authSlice.actions
+export const { setUserInformation, setData } = authSlice.actions
 
 export default authSlice.reducer
