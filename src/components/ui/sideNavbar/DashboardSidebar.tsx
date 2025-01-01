@@ -1,6 +1,6 @@
 "use client";
 import { deleteCookie, getCookie } from "@/lib/cookie";
-import { useAppSelector } from "@/lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -16,6 +16,7 @@ import {
     DropdownMenuTrigger
 } from "../dropdown-menu";
 import { Sidebar, SidebarBody, SidebarLink } from "../sidebar";
+import { clearUserInformation } from "@/lib/redux/features/auth/authSlice";
 
 export const links = [
     {
@@ -38,6 +39,7 @@ export const links = [
 ];
 export function DashboardSidebar({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = useState(false);
+    const dispatch = useAppDispatch()
     const router = useRouter()
     const { userInformation: user } = useAppSelector(state => state.auth)
     
@@ -49,6 +51,7 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
 
     const handleLogout = () => {
         deleteCookie('token')
+        dispatch(clearUserInformation())
         router.push("/login")
     }
     return (

@@ -4,24 +4,9 @@ import { addUser } from "@/api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SetStateAction } from "react";
 import RoleForm from "./RoleForm";
+import { toast, ToastContainer } from "react-toastify";
 
 
-interface IFormInputs {
-    name: string;
-    email: string;
-    role: string;
-    permissions: Record<string, boolean>;
-    routes: Record<string, boolean>;
-}
-
-const data = {
-    id: "98d0",
-    name: "Electronics",
-    email: "rahat@gmail.com",
-    role: "ATI",
-    permissions: ["edit", "view"],
-    routes: ["/dashboard"],
-};
 export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateAction<boolean>> }) {
     const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
@@ -49,13 +34,16 @@ export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateA
             permissions: checkedFn(data.permissions),
             routes: checkedFn(data.routes)
         }
-        console.log(roleObject)
-        mutate(roleObject);
+        
+        mutate(roleObject)
+        toast.success("Role added successfully")
         setOpen(false)
     };
+   
 
     return (
         <div>
+            {/* <ToastContainer/> */}
             <RoleForm onSubmit={onSubmit} buttonValue="Add" isPending={isPending} />
         </div>
     );

@@ -2,10 +2,11 @@ import { updateUser } from '@/api/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SetStateAction } from 'react';
 import RoleForm from './RoleForm';
+import { toast } from 'react-toastify';
 
 export default function EditRole({initialValues, setOpen}: {initialValues:any; setOpen: React.Dispatch<SetStateAction<any>>}) {
     const queryClient = useQueryClient();
-    const { mutate, isPending, error } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: updateUser,
         onSuccess: () => {
             queryClient.invalidateQueries(['allRolesData'] as any)
@@ -33,6 +34,7 @@ export default function EditRole({initialValues, setOpen}: {initialValues:any; s
         }
         console.log(roleObject)
         mutate(roleObject);
+        toast.success("Role Edited successfully")
         setOpen(false)
     };
   return (

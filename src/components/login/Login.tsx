@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { setUserInformation } from "@/lib/redux/features/auth/authSlice";
 
 interface LoginFormInputs {
     email: string;
@@ -20,12 +22,14 @@ export default function Login() {
     } = useForm<LoginFormInputs>();
     const [error, setError] = useState<string>("")
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const onSubmit = async (data: LoginFormInputs) => {
         try {
             const user = await login(data)
-            if (user?.id) {
-                router.push(user.routes[0] || "/" as string)
-            }
+                if (user?.id) {
+                    dispatch(setUserInformation(user))
+                    router.push(user.routes[0] || "/" as string)
+                }
         } catch (error: any) {
             console.log(error.message)
             setError(error.message)

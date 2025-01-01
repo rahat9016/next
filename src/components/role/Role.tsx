@@ -13,7 +13,6 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
 import TooltipDiv from "../ui/share/TooltipDiv";
 import FilterTable from "../ui/table/FilterTable";
@@ -22,6 +21,7 @@ import AddRole from "./AddRole";
 import EditRole from "./EditRole";
 import HasPermission from "../HasPermission";
 import { EDIT } from "@/lib/constants";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Role() {
     const [filtering, setFiltering] = useState("");
@@ -31,7 +31,7 @@ export default function Role() {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [editData, setEditData] = useState();
     const { isLoading, data: allUserData } = useQuery({
-        queryKey: ["allRolesData"],
+        queryKey: ["allUserData"],
         queryFn: () => getAllUsers(),
     });
 
@@ -93,9 +93,11 @@ export default function Role() {
         onGlobalFilterChange: setFiltering,
         onColumnVisibilityChange: setColumnVisibility,
     });
+    
 
     return (
         <div>
+
             <FilterTable
                 filtering={filtering}
                 setFiltering={setFiltering}

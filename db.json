@@ -3,7 +3,8 @@
     {
       "id": "edbe",
       "permissions": [
-        "view"
+        "view",
+        "delete"
       ],
       "routes": [],
       "name": "Super Admin",
@@ -16,7 +17,10 @@
       "email": "rahat@gmail.com",
       "role": "DRUG_INTERNATIONAL_LIMITED",
       "permissions": [
-        "view"
+        "add",
+        "edit",
+        "view",
+        "delete"
       ],
       "routes": [
         "/dashboard",
@@ -25,19 +29,36 @@
       ]
     },
     {
-      "id": "6671",
+      "id": "aa94",
       "name": "Minhazur",
       "email": "rahat@gmail.com",
       "role": "ATI",
-      "permissions": [
-        "edit",
-        "view"
-      ],
-      "routes": [
-        "/dashboard",
-        "/user",
-        "/role"
-      ]
+      "permissions": [],
+      "routes": []
+    },
+    {
+      "id": "2586",
+      "name": "Minhazur",
+      "email": "rahat@gmail.com",
+      "role": "ATI",
+      "permissions": [],
+      "routes": []
+    },
+    {
+      "id": "8237",
+      "name": "rahat",
+      "email": "rahat@gmail.com",
+      "role": "DRUG_INTERNATIONAL_LIMITED",
+      "permissions": [],
+      "routes": []
+    },
+    {
+      "id": "2340",
+      "name": "Minhazur",
+      "email": "rahat@gmail.com",
+      "role": "DRUG_INTERNATIONAL_LIMITED",
+      "permissions": [],
+      "routes": []
     }
   ]
 }

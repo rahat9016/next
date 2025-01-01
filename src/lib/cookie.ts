@@ -2,7 +2,6 @@ export const getCookie = (name: string) => {
     if (typeof document === 'undefined') return null;
     const nameEQ = name + "=";    
     const cookiesArray = document.cookie.split(";");
-    
     for (let i = 0; i < cookiesArray.length; i++) {
         let cookie = cookiesArray[i].trim();
         if (cookie.indexOf(nameEQ) === 0) {
@@ -10,7 +9,6 @@ export const getCookie = (name: string) => {
                 nameEQ.length,
                 cookie.length
             );
-            
             return JSON.parse(encryptedValue)
         }
     }
