@@ -37,11 +37,11 @@ export default function Login() {
 
     };
     return (
-        <div className="w-3/12 mx-auto bg-white shadow-lg p-3">
+        <div className="w-3/12 mx-auto dark:bg-zinc-900 bg-white shadow-lg p-3">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <h3 className="text-center">Login</h3>
                 <div>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email" className="dark:text-white">Email</label>
                     <Input
                         id="email"
                         type="email"

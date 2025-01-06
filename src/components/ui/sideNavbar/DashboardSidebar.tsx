@@ -1,5 +1,6 @@
 "use client";
-import { deleteCookie, getCookie } from "@/lib/cookie";
+import { deleteCookie } from "@/lib/cookie";
+import { clearUserInformation } from "@/lib/redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -16,7 +17,6 @@ import {
     DropdownMenuTrigger
 } from "../dropdown-menu";
 import { Sidebar, SidebarBody, SidebarLink } from "../sidebar";
-import { clearUserInformation } from "@/lib/redux/features/auth/authSlice";
 
 export const links = [
     {
@@ -65,6 +65,7 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
                 <SidebarBody className="justify-between gap-10">
                     <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
                         {open ? <Logo /> : <LogoIcon />}
+                        
                         <div className="mt-8 flex flex-col gap-2">
                             {filterMenus.map((link, idx) => (
                                 <SidebarLink key={idx} link={link} />
@@ -101,21 +102,6 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        {/* <SidebarLink
-              link={{
-                label: "Mahfuz Islam",
-                href: "#",
-                icon: (
-                  <Image
-                    src={"/images/sidebar/mahfuz.JPG"}
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            /> */}
                     </div>
                 </SidebarBody>
             </Sidebar>

@@ -6,6 +6,8 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { useTransitions } from '../../hooks/useTransitions';
+import { useRouter } from "next/navigation";
 
 
 interface Links {
@@ -169,8 +171,32 @@ export const SidebarLink = ({
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
+  const router = useRouter()
+  const sleep = (ms: number) => {
+    return new Promise((resolve)=> setTimeout(resolve, ms))
+}
+  const handleTransitions = async (Event: React.MouseEvent<HTMLAnchorElement, MouseEvent | React.MouseEvent<HTMLButtonElement, MouseEvent>>) => {
+    Event.preventDefault();
+    
+    console.log("Current Target", Event.currentTarget.href)
+    const body = document.querySelector('body')
+    // ~Add page transitions class to body
+    body?.classList.add('page-transitions')
+
+    // ~ Sleep for 300ms
+    await sleep(500)
+
+    // ~ navigate to the link
+    router.push(link.href)
+
+    // ~ Sleep for 300ms
+    await sleep(500)
+    // ~ Remove page transitions class from body
+    body?.classList.remove('page-transitions')
+}
   return (
     <Link
+      onClick={handleTransitions}
       href={link.href}
       className={cn(
         "flex items-center justify-start gap-2  group/sidebar py-2",
