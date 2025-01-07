@@ -9,8 +9,9 @@ import { RxCross2 } from "react-icons/rx";
 import { useTransitions } from '../../hooks/useTransitions';
 import { useRouter } from "next/navigation";
 import { SLEEP_MS } from "@/lib/constants";
-
-
+import LottiePlayer from "@lottiefiles/react-lottie-player";
+import loader from "../../../public/animation.gif"
+import Image from "next/image";
 interface Links {
   label: string;
   href: string;
@@ -175,14 +176,11 @@ export const SidebarLink = ({
 }) => {
   const { open, animate } = useSidebar();
   const router = useRouter()
-
+  const [showLoader, setShowLoader] = useState<boolean>(false)
   const handleTransitions = async (Event: React.MouseEvent<HTMLAnchorElement, MouseEvent | React.MouseEvent<HTMLButtonElement, MouseEvent>>) => {
     Event.preventDefault();
-    
-    const body = document.querySelector('body')
-    // ~Add page transitions class to body
-    body?.classList.add('page-transition')
-
+    // ~Add page transitions 
+    setShowLoader(true)
     // ~ Sleep for 300ms
     await sleep(SLEEP_MS)
 
@@ -191,10 +189,13 @@ export const SidebarLink = ({
 
     // ~ Sleep for 300ms
     await sleep(SLEEP_MS)
-    // ~ Remove page transitions class from body
-    body?.classList.remove('page-transition')
+    // ~ Remove page transitions
+    setShowLoader(false)
 }
   return (
+    <>
+    {showLoader && <div className="transition-overlay flex items-center justify-center">
+      <Image  src={loader} alt="" quality={100}  /></div>}
     <Link
       onClick={handleTransitions}
       href={link.href}
@@ -216,5 +217,6 @@ export const SidebarLink = ({
         {link.label}
       </motion.span>
     </Link>
+    </>
   );
 };
