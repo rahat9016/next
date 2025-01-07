@@ -8,6 +8,7 @@ import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { useTransitions } from '../../hooks/useTransitions';
 import { useRouter } from "next/navigation";
+import { SLEEP_MS } from "@/lib/constants";
 
 
 interface Links {
@@ -160,7 +161,9 @@ export const MobileSidebar = ({
     </>
   );
 };
-
+const sleep = (ms: number) => {
+  return new Promise((resolve)=> setTimeout(resolve, ms))
+}
 export const SidebarLink = ({
   link,
   className,
@@ -172,27 +175,24 @@ export const SidebarLink = ({
 }) => {
   const { open, animate } = useSidebar();
   const router = useRouter()
-  const sleep = (ms: number) => {
-    return new Promise((resolve)=> setTimeout(resolve, ms))
-}
+
   const handleTransitions = async (Event: React.MouseEvent<HTMLAnchorElement, MouseEvent | React.MouseEvent<HTMLButtonElement, MouseEvent>>) => {
     Event.preventDefault();
     
-    console.log("Current Target", Event.currentTarget.href)
     const body = document.querySelector('body')
     // ~Add page transitions class to body
-    body?.classList.add('page-transitions')
+    body?.classList.add('page-transition')
 
     // ~ Sleep for 300ms
-    await sleep(500)
+    await sleep(SLEEP_MS)
 
     // ~ navigate to the link
     router.push(link.href)
 
     // ~ Sleep for 300ms
-    await sleep(500)
+    await sleep(SLEEP_MS)
     // ~ Remove page transitions class from body
-    body?.classList.remove('page-transitions')
+    body?.classList.remove('page-transition')
 }
   return (
     <Link
