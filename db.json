@@ -59,6 +59,14 @@
       "role": "DRUG_INTERNATIONAL_LIMITED",
       "permissions": [],
       "routes": []
+    },
+    {
+      "id": "bab3",
+      "name": "Minhazur",
+      "email": "rahat222@gmail.com",
+      "role": "DRUG_INTERNATIONAL_LIMITED",
+      "permissions": [],
+      "routes": []
     }
   ]
 }

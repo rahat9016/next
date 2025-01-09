@@ -15,15 +15,15 @@ type ITable = {
 const TableAll: React.FC<ITable> = ({ table }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  const handleRowClick = (rowId: string) => {
-    setSelectedRows((prevSelectedRows) => {
-      if (prevSelectedRows.includes(rowId)) {
-        return prevSelectedRows.filter((id) => id !== rowId);
-      } else {
-        return [...prevSelectedRows, rowId];
-      }
-    });
-  };
+  // const handleRowClick = (rowId: string) => {
+  //   setSelectedRows((prevSelectedRows) => {
+  //     if (prevSelectedRows.includes(rowId)) {
+  //       return prevSelectedRows.filter((id) => id !== rowId);
+  //     } else {
+  //       return [...prevSelectedRows, rowId];
+  //     }
+  //   });
+  // };
 
   return (
     <div className="rounded-md px-2">

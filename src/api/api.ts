@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IRole } from "./interface";
 
 const url = "https://jsonplaceholder.typicode.com";
 const jsonServerURL = "http://localhost:8000"
@@ -34,7 +35,8 @@ export async function login({email}:{email: string}) {
     }
 }
 
-export const addUser = async (data:any) => {
+export const addUser = async (data: IRole) => {
+    console.log(data)
     try {        
         const response = await axios.post(`${jsonServerURL}/users`, data);
         return response.data
@@ -43,7 +45,7 @@ export const addUser = async (data:any) => {
         throw new Error("Add User field");
     }
 }
-export const updateUser = async (data:any) => {
+export const updateUser = async (data: IRole) => {
     try {        
         const response = await axios.patch(`${jsonServerURL}/users/${data?.id}`, data);
         return response.data

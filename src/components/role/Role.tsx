@@ -21,7 +21,8 @@ import AddRole from "./AddRole";
 import EditRole from "./EditRole";
 import HasPermission from "../HasPermission";
 import { EDIT } from "@/lib/constants";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { IRole } from "@/api/interface";
 
 export default function Role() {
     const [filtering, setFiltering] = useState("");
@@ -29,7 +30,7 @@ export default function Role() {
     const [filterModalOpen, setFilterModalOpen] = useState(false);
     const [columnVisibility, setColumnVisibility] = useState({});
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [editData, setEditData] = useState();
+    const [editData, setEditData] = useState<IRole>();
     const { isLoading, data: allUserData } = useQuery({
         queryKey: ["allUserData"],
         queryFn: () => getAllUsers(),
@@ -37,7 +38,8 @@ export default function Role() {
 
     const data = useMemo(() => allUserData, [allUserData]);
 
-    const handleEdit = (rowData: any) => {
+    const handleEdit = (rowData: IRole) => {
+        console.log(rowData)
         setEditData(rowData);
         setEditModalOpen(true);
     };

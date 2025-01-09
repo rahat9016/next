@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../ui/form/Input";
 import SelectField from "../ui/form/SelectField";
 import Schema from "./Schema";
+import { IFormInputs, IRoutes } from "./interface";
 
 export const options = [
     { id: 1, value: "ATI", label: "ATI" },
@@ -33,15 +34,9 @@ export const permissionBaseAction = [
         id: "delete",
         label: "Delete",
     },
-] as const;
+]
 
-interface IFormInputs {
-    name: string;
-    email: string;
-    role: string;
-    permissions: Record<string, boolean>;
-    routes: Record<string, boolean>;
-}
+
 
 export default function RoleForm({
     initialValues,
@@ -50,21 +45,25 @@ export default function RoleForm({
     isEdit = false,
     buttonValue,
 }: {
-    initialValues?: any;
-    onSubmit: (data: any) => void;
+    initialValues?: IFormInputs;
+    onSubmit: (data: IFormInputs) => void;
     isPending?: boolean;
     isEdit?: boolean;
     buttonValue?: string;
 }) {
     const resolver = yupResolver(Schema);
     function initialPermissionsFn(
-        permissionData: any,
-        userAccessPermission: string[]
+        permissionData: {
+            id: string;
+            label: string
+        }[],
+        userAccessPermission: string | string[] | Record<string, boolean> | undefined
     ) {
         if (!permissionData && !userAccessPermission) return;
 
         const permissions = permissionData.reduce(
-            (acc: any, permission: any) => {
+            (acc: Record<string, boolean>, permission: {id: string}) => {
+
                 acc[permission.id] = userAccessPermission?.includes(
                     permission.id
                 );
@@ -74,15 +73,16 @@ export default function RoleForm({
         );
         return permissions;
     }
-    function initialRoutesFn(routesData: any, userAccessRoutes: string[]) {
+    function initialRoutesFn(routesData: IRoutes[], userAccessRoutes) {
         if (!routesData && !userAccessRoutes) return;
-        const routes = routesData.reduce((acc: any, route: any) => {
+        const routes = routesData.reduce((acc: Record<string, boolean>, route: IRoutes) => {
+            // console.log(userAccessRoutes)
             acc[route.href] = userAccessRoutes?.includes(route.href);
             return acc;
         }, {} as Record<string, boolean>);
         return routes;
     }
-
+console.log(permissionBaseAction)
     const defaultValues = {
         name: initialValues?.name,
         email: initialValues?.email,

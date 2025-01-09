@@ -4,7 +4,8 @@ import { addUser } from "@/api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SetStateAction } from "react";
 import RoleForm from "./RoleForm";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { IFormInputs } from "./interface";
 
 
 export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateAction<boolean>> }) {
@@ -12,6 +13,7 @@ export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateA
     const { mutate, isPending } = useMutation({
         mutationFn: addUser,
         onSuccess: () => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             queryClient.invalidateQueries(['allRolesData'] as any)
         },
         onError: (error: Error) => {
@@ -19,12 +21,13 @@ export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateA
         },
     });
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: IFormInputs) => {
         if (!data) return;
 
-        function checkedFn(data: any) {
+        function checkedFn(data: Record<string, boolean>) {
             const checked = Object.entries(data)
-                .filter(([_, isChecked]) => isChecked)
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                .filter(([_d, isChecked]) => isChecked)
                 .map(([key]) => key);
             return checked
         }
