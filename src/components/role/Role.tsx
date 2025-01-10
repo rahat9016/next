@@ -4,7 +4,6 @@ import { getAllUsers } from "@/api/api";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useQuery } from "@tanstack/react-query";
 import {
-    CellContext,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
@@ -22,7 +21,7 @@ import EditRole from "./EditRole";
 import HasPermission from "../HasPermission";
 import { EDIT } from "@/lib/constants";
 import { ToastContainer } from "react-toastify";
-import { IRole } from "@/api/interface";
+import { IRolesProps } from "./interface";
 
 export default function Role() {
     const [filtering, setFiltering] = useState("");
@@ -30,7 +29,7 @@ export default function Role() {
     const [filterModalOpen, setFilterModalOpen] = useState(false);
     const [columnVisibility, setColumnVisibility] = useState({});
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [editData, setEditData] = useState<IRole>();
+    const [editData, setEditData] = useState<IRolesProps>();
     const { isLoading, data: allUserData } = useQuery({
         queryKey: ["allUserData"],
         queryFn: () => getAllUsers(),
@@ -38,7 +37,7 @@ export default function Role() {
 
     const data = useMemo(() => allUserData, [allUserData]);
 
-    const handleEdit = (rowData: IRole) => {
+    const handleEdit = (rowData: IRolesProps ) => {
         console.log(rowData)
         setEditData(rowData);
         setEditModalOpen(true);
@@ -49,7 +48,7 @@ export default function Role() {
             accessorKey: "id",
             enableColumnFilter: false,
             enableSorting: false,
-            cell: (info: CellContext<any, any>) => info.row.index + 1,
+            cell: (info: { row: { index: number; } }) => info.row.index + 1,
         },
         {
             header: "Name",
@@ -63,7 +62,7 @@ export default function Role() {
             header: "Action",
             accessor: "edit",
             enableSorting: false,
-            cell: (row: any) => (
+            cell: (row: { row: { original: IRolesProps; }; }) => (
                 <div className="flex gap-3 justify-center items-center w-full">
                     <HasPermission action={EDIT}>
                         <button

@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../ui/form/Input";
 import SelectField from "../ui/form/SelectField";
 import Schema from "./Schema";
-import { IFormInputs, IRoutes } from "./interface";
+import { IRolesProps, IRoutes } from "./interface";
 
 export const options = [
     { id: 1, value: "ATI", label: "ATI" },
@@ -34,9 +34,7 @@ export const permissionBaseAction = [
         id: "delete",
         label: "Delete",
     },
-]
-
-
+];
 
 export default function RoleForm({
     initialValues,
@@ -45,8 +43,8 @@ export default function RoleForm({
     isEdit = false,
     buttonValue,
 }: {
-    initialValues?: IFormInputs;
-    onSubmit: (data: IFormInputs) => void;
+    initialValues?: IRolesProps;
+    onSubmit: (data: IRolesProps) => void;
     isPending?: boolean;
     isEdit?: boolean;
     buttonValue?: string;
@@ -55,43 +53,45 @@ export default function RoleForm({
     function initialPermissionsFn(
         permissionData: {
             id: string;
-            label: string
+            label: string;
         }[],
-        userAccessPermission: string | string[] | Record<string, boolean> | undefined
+        userAccessPermission: Record<string, boolean> | undefined
     ) {
-        if (!permissionData && !userAccessPermission) return;
-
+        if (!permissionData && !userAccessPermission) return {};
         const permissions = permissionData.reduce(
-            (acc: Record<string, boolean>, permission: {id: string}) => {
-
-                acc[permission.id] = userAccessPermission?.includes(
-                    permission.id
-                );
+            (acc: Record<string, boolean>, permission: { id: string }) => {
+                acc[permission.id] = userAccessPermission?.[permission.id] || false;
                 return acc;
             },
-            {} as Record<string, boolean>
+            {}
         );
         return permissions;
     }
-    function initialRoutesFn(routesData: IRoutes[], userAccessRoutes) {
-        if (!routesData && !userAccessRoutes) return;
-        const routes = routesData.reduce((acc: Record<string, boolean>, route: IRoutes) => {
-            // console.log(userAccessRoutes)
-            acc[route.href] = userAccessRoutes?.includes(route.href);
-            return acc;
-        }, {} as Record<string, boolean>);
+
+    function initialRoutesFn(
+        routesData: IRoutes[],
+        userAccessRoutes: Record<string, boolean> | undefined
+    ) {
+        if (!routesData && !userAccessRoutes) return {};
+        const routes = routesData.reduce(
+            (acc: Record<string, boolean>, route: IRoutes) => {
+                acc[route.href] = userAccessRoutes?.[route.href] || false;
+                return acc;
+            },
+            {}
+        );
         return routes;
     }
-console.log(permissionBaseAction)
+
     const defaultValues = {
-        name: initialValues?.name,
-        email: initialValues?.email,
-        role: initialValues?.role,
+        name: initialValues?.name || "",
+        email: initialValues?.email || "",
+        role: initialValues?.role || "",
         permissions: initialPermissionsFn(
             permissionBaseAction,
-            initialValues?.permissions
+            initialValues?.permissions ?? {}
         ),
-        routes: initialRoutesFn(links, initialValues?.routes),
+        routes: initialRoutesFn(links, initialValues?.routes ?? {}),
     };
     const {
         register,
@@ -99,7 +99,7 @@ console.log(permissionBaseAction)
         formState: { errors },
         resetField,
         control,
-    } = useForm<IFormInputs>({ resolver: resolver, defaultValues });
+    } = useForm<IRolesProps>({ resolver: resolver, defaultValues });
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -152,14 +152,9 @@ console.log(permissionBaseAction)
                                         <Checkbox
                                             id={permission.id}
                                             checked={!!field.value}
-                                            onCheckedChange={(checked) =>
-                                                field.onChange(checked)
-                                            }
+                                            onCheckedChange={(checked) => field.onChange(checked)}
                                         />
-                                        <label
-                                            className="cursor-pointer"
-                                            htmlFor={permission.id}
-                                        >
+                                        <label className="cursor-pointer" htmlFor={permission.id}>
                                             {permission.label}
                                         </label>
                                     </div>
@@ -184,14 +179,9 @@ console.log(permissionBaseAction)
                                     <Checkbox
                                         id={route.href}
                                         checked={!!field.value}
-                                        onCheckedChange={(checked) =>
-                                            field.onChange(checked)
-                                        }
+                                        onCheckedChange={(checked) => field.onChange(checked)}
                                     />
-                                    <label
-                                        className="cursor-pointer"
-                                        htmlFor={route.href}
-                                    >
+                                    <label className="cursor-pointer" htmlFor={route.href}>
                                         {route.label}
                                     </label>
                                 </div>

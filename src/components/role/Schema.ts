@@ -13,8 +13,8 @@ const Schema = yup.object().shape({
             "Email must be a valid email address"
         ),
     role: yup.string().required("Role is required"),
-    permissions: yup.object().notRequired(),
-    routes: yup.object().notRequired()
+    permissions: yup.object().default({}),
+    routes: yup.object().default({}),
 });
 
 export default Schema;

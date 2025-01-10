@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SetStateAction } from "react";
 import RoleForm from "./RoleForm";
 import { toast } from "react-toastify";
-import { IFormInputs } from "./interface";
+import { IRolesProps } from "./interface";
 
 
 export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateAction<boolean>> }) {
@@ -21,7 +21,7 @@ export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateA
         },
     });
 
-    const onSubmit = (data: IFormInputs) => {
+    const onSubmit = (data: IRolesProps) => {
         if (!data) return;
 
         function checkedFn(data: Record<string, boolean>) {
@@ -46,7 +46,6 @@ export default function AddRole({ setOpen }: { setOpen: React.Dispatch<SetStateA
 
     return (
         <div>
-            {/* <ToastContainer/> */}
             <RoleForm onSubmit={onSubmit} buttonValue="Add" isPending={isPending} />
         </div>
     );

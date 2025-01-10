@@ -9,11 +9,14 @@ import { Input } from "../ui/input";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { setUserInformation } from "@/lib/redux/features/auth/authSlice";
 
+
 interface LoginFormInputs {
     email: string;
     password: string;
 }
-
+function isErrorWithMessage(error: unknown): error is { message: string } {
+    return typeof error === "object" && error !== null && "message" in error;
+}
 export default function Login() {
     const {
         register,
@@ -30,9 +33,14 @@ export default function Login() {
                     dispatch(setUserInformation(user))
                     router.push(user.routes[0] || "/" as string)
                 }
-        } catch (error: any) {
-            console.log(error.message)
-            setError(error.message)
+        } catch (error) {
+            if (isErrorWithMessage(error)) {
+                console.log(error.message);
+                setError(error.message);
+            } else {
+                console.log("An unknown error occurred");
+                setError("An unknown error occurred");
+            }
         }
 
     };

@@ -33,7 +33,11 @@
       "name": "Minhazur",
       "email": "rahat@gmail.com",
       "role": "ATI",
-      "permissions": [],
+      "permissions": [
+        "add",
+        "view",
+        "delete"
+      ],
       "routes": []
     },
     {
