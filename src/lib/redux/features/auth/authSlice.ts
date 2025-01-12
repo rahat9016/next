@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { clear } from "console";
+
 
 
 
@@ -13,7 +13,7 @@ interface IInitialState {
         routes: string[];
         permissions: string[];
     },
-    data: any
+    data: []
 }
 
 const initialState: IInitialState = {

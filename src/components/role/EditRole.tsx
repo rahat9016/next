@@ -27,8 +27,10 @@ export default function EditRole({
   const onSubmit = (data: IRolesProps) => {
     if (!data) return;
 
-    function checkedFn(data: Record<string, boolean>) {
-      console.log(data);
+    function checkedFn(data: Record<string, boolean> | null) {
+      if(!data){
+        return []
+      }
       const checked = Object.entries(data)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, isChecked]) => isChecked)

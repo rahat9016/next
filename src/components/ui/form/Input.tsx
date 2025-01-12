@@ -9,7 +9,7 @@ interface FieldInfo {
     register: UseFormRegister<any>;
     disabled?: boolean;
     isRequired?: boolean;
-    defaultValue?: any;
+    defaultValue?: string;
   }
 
 const Input: React.FC<FieldInfo> = ({

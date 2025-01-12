@@ -6,6 +6,7 @@ import {
 } from "react-icons/bs";
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TablePagination({ table }: { table: any }) {
 	const pageIndex = table.getState().pagination.pageIndex;
 	const pageCount = table.getPageCount();

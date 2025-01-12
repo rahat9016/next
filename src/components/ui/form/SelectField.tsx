@@ -17,8 +17,8 @@ interface SelectFieldProps {
     disabledValue?: string;
     makeDisable?: boolean;
     isLoading: boolean;
-    onChange?: (value: any) => void;
-    defaultValue?: any;
+    onChange?: (value: string) => void;
+    defaultValue?: string;
   }
 
   const SelectField: React.FC<SelectFieldProps> = ({
@@ -33,7 +33,6 @@ interface SelectFieldProps {
     error,
     labelKey,
     valueKey,
-    disabledValue,
     makeDisable,
     isLoading,
     onChange,

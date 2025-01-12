@@ -8,6 +8,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { ADD } from "@/lib/constants";
+import { ReactNode } from "react";
 // import {
 //   DropdownMenu,
 //   DropdownMenuCheckboxItem,
@@ -29,7 +30,7 @@ interface IFilter {
   setFiltering: React.Dispatch<React.SetStateAction<string>>;
   table: any;
   data: any;
-  children: any;
+  children: ReactNode;
   buttonName: string;
   open: boolean;
   setOpen: (open: boolean) => void;

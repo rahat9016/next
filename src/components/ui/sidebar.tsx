@@ -6,10 +6,8 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
-import { useTransitions } from '../../hooks/useTransitions';
 import { useRouter } from "next/navigation";
 import { SLEEP_MS } from "@/lib/constants";
-import LottiePlayer from "@lottiefiles/react-lottie-player";
 import loader from "../../../public/animation.gif"
 import Image from "next/image";
 interface Links {

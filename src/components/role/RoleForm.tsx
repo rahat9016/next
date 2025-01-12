@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, Resolver, useForm } from "react-hook-form";
 import { Checkbox } from "../ui/checkbox";
 import { links } from "../ui/sideNavbar/DashboardSidebar";
 
@@ -49,7 +49,7 @@ export default function RoleForm({
     isEdit?: boolean;
     buttonValue?: string;
 }) {
-    const resolver = yupResolver(Schema);
+    const resolver = yupResolver(Schema) as Resolver<IRolesProps>;;
     function initialPermissionsFn(
         permissionData: {
             id: string;
